@@ -10,9 +10,20 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Sizes
 const sizes = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,
+    height: window.innerHeight
 }
+
+// Handle screen resizing
+window.addEventListener('resize', () => {
+    //updating sizes according to the screen
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+    // update a camera
+    camera.aspect = sizes.width / sizes.height
+
+})
 
 // Cursor
 const cursor = {
