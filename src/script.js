@@ -20,10 +20,40 @@ window.addEventListener('resize', () => {
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
 
-    // update a camera
+    // Update camera
     camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
 
+    // Update renderer
+    // Updating the renderer will automatically update the canvas width and height
+    renderer.setSize(sizes.width, sizes.height)
+    // monitores com retina -- da Apple, precisam ter o pixel ratio setado em 2 para ver as imagens com precisao, 
+    // entao eh bom setar como 2 e habilitar o math.min para poupar o gasto do monitor a renderizar mais
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
+
+
+// Dar suporte pra Fullscreen quando se dá clique duplo
+window.addEventListener('dblclick', () => {
+
+    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement
+
+    if (!fullscreenElement){ 
+    canvas.requestFullscreen()
+    } else if (canvas.webkitrequestFullscreen){
+        // Esse webkit eh um request para monitores Apple
+        canvas.webkitRequestFullscreen()
+    }
+    else {
+        if(document.exitFullscreen){
+            document.exitFullscreen()
+        } else if (document.webkitExitFullscreen){
+            // Esse webkit eh um request para monitores Apple
+            document.webkitExitFullscreen()
+        }
+    
+}}
+)
 
 // Cursor
 const cursor = {
