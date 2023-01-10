@@ -1,10 +1,22 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import gsap from 'gsap'
+import * as dat from 'dat.gui'
+
+
 
 /**
  * Base
  */
+const parameters = {
+    color: 0xff0000,
+    spin: () =>
+    {
+        gsap.to(mesh.rotation, 1, { y: mesh.rotation.y + Math.PI * 2 })
+    }
+}
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -71,11 +83,40 @@ window.addEventListener('mousemove', (event) =>
 const scene = new THREE.Scene()
 
 // Object
-const mesh = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1, 5, 5, 5),
-    new THREE.MeshBasicMaterial({ color: 0xff0000 })
-)
+const geometry = new THREE.BoxGeometry(1, 1, 1)
+const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
+
+
+// Debug no objeto
+// os parametros sao adicionados nos blocos abaixo, com
+// as infos que se quer "tweak"/testar usando o debug
+const gui = new dat.GUI()
+// gui.hide()
+gui.add(mesh.position, 'y').min(- 3).max(3).step(0.01).name('elevation')
+gui.add(mesh, 'visible')
+gui.add(material, 'wireframe')
+
+window.addEventListener('keydown', (event) =>
+{
+    if(event.key === 'h')
+    {
+        if(gui._hidden)
+            gui.show()
+        else
+            gui.hide()
+    }
+})
+
+gui
+    .addColor(parameters, 'color')
+    .onChange(() =>
+    {
+        material.color.set(parameters.color)
+    })
+
+gui.add(parameters, 'spin')
 
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
