@@ -47,7 +47,36 @@ You should keep the **Console** open at all time to see potential errors and war
 
 <br/>
 
+## **How to load Three.js**
+
+Now we need to load the Three.js library. There are many ways of doing it. For now, we will simply download the library and load it using <script>.
+
+Go to https://threejs.org/ and click on the download button to download a zip file and unzip it. The file is quite heavy, but don't worry, we only need one file from it.
+
+You should get a folder that looks like this:
+
 <br/>
+
+<div align="center"><img src="https://firebasestorage.googleapis.com/v0/b/swimmio-content/o/repositories%2FZ2l0aHViJTNBJTNBVGhyZWVKU19Qcm9qZWN0JTNBJTNBZGFuaWVsYXBhc3Nvcw%3D%3D%2Fc9338c45-f9eb-4062-b52d-c9f78f79dab4.png?alt=media&token=a1775de1-7e09-47c0-9296-49c73640292f" style="width:'50%'"/></div>
+
+<br/>
+
+Go to the build/ folder and copy the three.min.js file to your project. You should get something like this:
+
+<br/>
+
+<div align="center"><img src="https://firebasestorage.googleapis.com/v0/b/swimmio-content/o/repositories%2FZ2l0aHViJTNBJTNBVGhyZWVKU19Qcm9qZWN0JTNBJTNBZGFuaWVsYXBhc3Nvcw%3D%3D%2Ffdf3a5aa-b470-4d73-92a2-0073fabfede1.png?alt=media&token=58f05e1b-42c5-457c-8a58-308b813cd202" style="width:'25%'"/></div>
+
+<br/>
+
+We can now load the Three.js library at the end of the `<body>`, right before closing it:
+
+```
+<script src="./three.min.js"></script>
+<script src="./script.js"></script>
+```
+
+Make sure to load `three.min.js` before your `script.js`; otherwise, your script will not be aware of what's inside the `three.min.js` file.
 
 <br/>
 
